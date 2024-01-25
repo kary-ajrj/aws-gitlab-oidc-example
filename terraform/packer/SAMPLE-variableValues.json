@@ -1,0 +1,7 @@
+{
+  "GitlabRunnerToken": "\"<PUT YOUR VALUE>\"",
+  "AWSSecretAccessKey": "<PUT YOUR VALUE>",
+  "AWSAccessKeyID": "<PUT YOUR VALUE>"
+}
+
+//NOTE: Value for "AWSAccessKeyID" can be found in the S3 state file named "aws-sso-cli".

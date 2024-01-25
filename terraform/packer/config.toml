@@ -1,0 +1,49 @@
+concurrent = 2
+check_interval = 0
+shutdown_timeout = 0
+
+[session_server]
+  session_timeout = 1800
+
+[[runners]]
+  name = "ip-172-31-47-254"
+  url = "<VALUE>"
+  id = 20
+  token = aRunnerToken
+  token_obtained_at = 2023-11-30T06:43:05Z
+  token_expires_at = 0001-01-01T00:00:00Z
+  executor = "docker-autoscaler"
+  shell = "sh"
+  limit = 2
+  request_concurrency = 2
+
+  [runners.cache]
+    MaxUploadedArchiveSize = 0
+
+  [runners.docker]
+    image = "docker:latest"
+    volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache"]
+    privileged = false
+
+  [runners.autoscaler]
+    capacity_per_instance = 1
+    max_use_count = 0
+    max_instances = 2
+    plugin = "fleeting-plugin-aws"
+
+    [runners.autoscaler.plugin_config]
+      config_file = "/home/ubuntu/.aws/config"
+      name = "terraform-asg-gitlab-pipeline"
+      credentials_file = "/home/ubuntu/.aws/credentials"
+      profile = "default"
+
+    [runners.autoscaler.connector_config]
+      username = "ubuntu"
+      protocol = "ssh"
+      use_external_addr = true
+      key = "/home/ubuntu/.ssh/key.pem"
+      use_static_credentials = false
+
+    [[runners.autoscaler.policy]]
+      idle_count = 0
+      idle_time = "10m0s"

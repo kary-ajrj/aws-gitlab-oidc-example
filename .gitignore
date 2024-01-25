@@ -1,0 +1,4 @@
+terraform/packer/privateKey.pem
+terraform/packer/variableValues.json
+terraform/oidc/.terraform
+.terraform
